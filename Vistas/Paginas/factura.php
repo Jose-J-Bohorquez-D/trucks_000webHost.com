@@ -1,151 +1,187 @@
-<?php
-#$mstrDatosFactura= new GeneradorFacturasControlador;
-#$mstrDatosFactura->ctlrRecibe_Servicio_A_facturar();
-ob_clean();
-ob_end_clean();
 
-class PDF extends FPDF
-{
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Invoice</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Invoice</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-// Cabecera de página
-function Header()
-{
-    #$this->Image('logo.png',10,8,33);// Logo
-    $this->SetFont('Arial','',15);// Arial bold 15
-    $this->Cell(145);// Movernos a la derecha
-    $this->Cell(44,7,'Factura De Venta',1,0,'C');
-    $this->Ln(10);//salto de linea
-    $this->Cell(145);// Movernos a la derecha
-    $this->SetFont('Arial','',10);
-    $this->Cell(45,8,utf8_decode('Factura N°: 1111111111'),0,0,'C');
-    $this->Ln(5);//salto de linea
-    $this->Cell(145);// Movernos a la derecha
-    $this->SetFont('Arial','',10);//se cambia la tipografia a tamaño 10
-    $this->Cell(45,8,utf8_decode('Fecha: 25/07/2022'),0,0,'C');//fecha de la factura
-    
-    $this->Ln(-16);//salto de linea
-    $this->SetFont('Arial','',14);//cambiamos tamaño tipografia a 13
-    $this->Cell(72.5);// Movernos a la derecha
-    $this->Cell(50,7,'TRUCKS S.A.S',0,0,'C');//nombre de la empresa
-    $this->Ln(4);//salto de linea
-    $this->SetFont('Arial','',8);//cambiamos tamaño tipografia a 1
-    $this->Cell(72.5);// Movernos a la derecha
-    $this->Cell(52,6,'NIT: 111111111-1',0,0,'C');//nit
-    $this->Ln(8);//salto de linea
-    $this->SetFont('Arial','',10);//cambiamos tamaño tipografia a 10
-    $this->Cell(72.5);// Movernos a la derecha
-    $this->Cell(50,7,'City: sprimfield',0,0,'C');//estado provincia localidad etc
-    $this->Ln(4);//salto de linea
-    $this->Cell(72.5);// Movernos a la derecha
-    $this->Cell(50,7,'Address: Av 100pre viva 742',0,0,'C');//direccion empresa
-    $this->Ln(4);//salto de linea
-    $this->Cell(72.5);// Movernos a la derecha
-    $this->Cell(50,7,'Fax:+57 6215010',0,0,'C');//fax
-    $this->Ln(-19);//salto de linea
-
-    $this->Cell(50,20,'LOGO',1,10,'C');//nombre de la empresa
-   
-}
-
-// Pie de página
-function Footer()
-{
-    $this->Ln(150);//salto de linea
-    $this->SetFont('Arial','',10);
-    $this->Cell(55,8,utf8_decode('Proveedor de facturacion The Jungle Media'),0,0,'C');
-    // Posición: a 1,5 cm del final
-    $this->SetY(-15);
-    // Arial italic 8
-    $this->SetFont('Arial','I',8);
-    // Número de página
-    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
-}
-}
-
-    $mysqli = new mysqli("localhost","root","","trucks2023"); 
-    $consulta="SELECT sav.id_asignacion,sav.id_vehiculo,sav.id_servicio,sav.fecha_inicio_serv,sav.fecha_fin_serv,
-            sav.valor_servicio_asignado,v.id_vehiculo,v.placa,v.asignado_empresa,s.nombre_servicio,
-            c.id_cliente,c.nombre_empresa,c.nombre_cliente,c.direccion,c.tel1,c.email1 
-            FROM servicios_asignados_vehiculos sav
-            JOIN vehiculos v ON sav.id_asignacion = v.id_vehiculo
-            JOIN servicios s ON sav.id_servicio = s.id_servicio
-            JOIN clientes c ON v.asignado_empresa = c.nombre_empresa";
-    $resultado=$mysqli->query($consulta);
-    #var_dump($resultado);
-
-    $pdf = new PDF();
-    $pdf->AliasNbPages();
-    $pdf->AddPage();
-
-    $row=$resultado->fetch_assoc();
-    $pdf->Ln(10);//salto de linea
-    #$pdf->SetFont('Arial','B',13);
-    #$pdf->Cell(40,10,'Cliente:');
-    $pdf->Ln(4);//salto de linea
-    $pdf->SetFont('Arial','',8);
-    $pdf->Cell(40,10,'Cliente: '.$row['nombre_empresa']);
-    #$pdf->Ln(4);//salto de linea
-    #$pdf->Cell(40,10,$row['nombre_empresa']);
-    $pdf->Ln(4);//salto de linea
-    $pdf->Cell(40,10,'Direccion: '.$row['direccion']);
-    $pdf->Ln(4);//salto de linea
-    $pdf->Cell(40,10,'Email: '.utf8_decode($row['email1']));
-    $pdf->Ln(4);//salto de linea
-    $pdf->Cell(40,10,'Telefono: '.$row['tel1']);
-    $pdf->Ln(4);//salto de linea
-    $pdf->Ln(4);//salto de linea
-    $pdf->Ln(-22);//salto de linea
-
-    $pdf->Cell(100);
-    $pdf->Cell(40,10,'Tipo Negociacion: Contado');
-    $pdf->Ln(4);//salto de linea
-    $pdf->Cell(100);
-    $pdf->Cell(40,10,'Medio De Pago: Efectivo');
-    $pdf->Ln(4);//salto de linea
-    $pdf->Cell(100);
-    $pdf->Cell(40,10,'Moneda: USD');
-    $pdf->Ln(4);//salto de linea
-    $pdf->Cell(100);
-    $pdf->Cell(40,10,'Fecha y Hora Emicion: '.date('d-m-Y h:i:s a', time()),0,1);
-    $pdf->Ln(4);//salto de linea
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <!--<div class="callout callout-info">
+              <h5><i class="fas fa-info"></i> Note:</h5>
+              This page has been enhanced for printing. Click the print button at the bottom of the invoice to test.
+            </div>-->
 
 
+            <!-- Main content -->
+            <div class="invoice p-3 mb-3">
+              <!-- title row -->
+              <div class="row">
+                <div class="col-12">
+                  <h4>
+                    <i class="fas fa-globe"></i> AdminLTE, Inc.
+                    <small class="float-right">Date: 2/10/2014</small>
+                  </h4>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- info row -->
+              <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                  From
+                  <address>
+                    <strong>Admin, Inc.</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (804) 123-5432<br>
+                    Email: info@almasaeedstudio.com
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  To
+                  <address>
+                    <strong>John Doe</strong><br>
+                    795 Folsom Ave, Suite 600<br>
+                    San Francisco, CA 94107<br>
+                    Phone: (555) 539-1037<br>
+                    Email: john.doe@example.com
+                  </address>
+                </div>
+                <!-- /.col -->
+                <div class="col-sm-4 invoice-col">
+                  <b>Invoice #007612</b><br>
+                  <br>
+                  <b>Order ID:</b> 4F3S8J<br>
+                  <b>Payment Due:</b> 2/22/2014<br>
+                  <b>Account:</b> 968-34567
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
 
-    #$pdf->Cell(20);
-    $pdf->Cell(6,7,'#',1,0,"C",0);
-    $pdf->Cell(14,7,'Codigo',1,0,"C",0);
-    $pdf->Cell(10,7,'Cant',1,0,"C",0);
-    $pdf->Cell(70,7,'Descripcion',1,0,"C",0);
-    $pdf->Cell(27,7,'Asigando Placa',1,0,"C",0);
-    $pdf->Cell(27,7,'Unidad Medida',1,0,"C",0);
-    $pdf->Cell(20,7,'Valor Unit',1,0,"C",0);
-    $pdf->Cell(20,7,'Total',1,0,"C",0);
-    $pdf->Ln(8);//salto de linea
+              <!-- Table row -->
+              <div class="row">
+                <div class="col-12 table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                    <tr>
+                      <th>Qty</th>
+                      <th>Product</th>
+                      <th>Serial #</th>
+                      <th>Description</th>
+                      <th>Subtotal</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Call of Duty</td>
+                      <td>455-981-221</td>
+                      <td>El snort testosterone trophy driving gloves handsome</td>
+                      <td>$64.50</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Need for Speed IV</td>
+                      <td>247-925-726</td>
+                      <td>Wes Anderson umami biodiesel</td>
+                      <td>$50.00</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Monsters DVD</td>
+                      <td>735-845-642</td>
+                      <td>Terry Richardson helvetica tousled street art master</td>
+                      <td>$10.70</td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>Grown Ups Blue Ray</td>
+                      <td>422-568-642</td>
+                      <td>Tousled lomo letterpress</td>
+                      <td>$25.99</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
 
-while ($row = $resultado->fetch_assoc()) {
-    #$pdf->Cell(20);
-    $pdf->Cell(6,7,$row['id_asignacion'],0,0,"C",0);
-    $pdf->Cell(14,7,$row['id_servicio'],0,0,"C",0);
-    $pdf->Cell(10,7,'1',0,0,"C",0);
-    #$pdf->Ln(4);//salto de linea
-    $pdf->Cell(70,7,$row['nombre_servicio'],0,0,"C",0);
-    #$pdf->Ln(4);//salto de linea
-    $pdf->Cell(27,7,$row['placa'],0,0,"C",0);
-    $pdf->Cell(27,7,'WSD(estandar)',0,0,"C",0);
-    $pdf->Cell(20,7,$row['valor_servicio_asignado'],0,0,"C",0);
-    $pdf->Cell(20,7,$row['valor_servicio_asignado'],0,1,"C",0);
-    #$pdf->Ln(4);//salto de linea
-}
-    $pdf->Ln(8);//salto de linea
-    $pdf->Cell(130);
-    $pdf->Cell(20,7,'IVA:',1,0,"C",0);
-    $pdf->Cell(40,7,'19%',1,1,"C",0);
-    $pdf->Cell(130);
-    $pdf->Cell(20,7,'Subtotal:',1,0,"C",0);
-    $pdf->Cell(40,7,'$'.$row['valor_servicio_asignado'],1,1,"C",0);
-    $pdf->Cell(130);
-    $pdf->Cell(20,7,'Total:',1,0,"C",0);
-    $pdf->Cell(40,7,'$'.$row['valor_servicio_asignado'],1,0,"C",0);
+              <div class="row">
+                <!-- accepted payments column -->
+                <div class="col-6">
+                  <p class="lead">Payment Methods:</p>
+                  <img src="../../dist/img/credit/visa.png" alt="Visa">
+                  <img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+                  <img src="../../dist/img/credit/american-express.png" alt="American Express">
+                  <img src="../../dist/img/credit/paypal2.png" alt="Paypal">
 
-$pdf->Output();
-?>
+                  <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+                    Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
+                    plugg
+                    dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
+                  </p>
+                </div>
+                <!-- /.col -->
+                <div class="col-6">
+                  <p class="lead">Amount Due 2/22/2014</p>
+
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th style="width:50%">Subtotal:</th>
+                        <td>$250.30</td>
+                      </tr>
+                      <tr>
+                        <th>Tax (9.3%)</th>
+                        <td>$10.34</td>
+                      </tr>
+                      <tr>
+                        <th>Shipping:</th>
+                        <td>$5.80</td>
+                      </tr>
+                      <tr>
+                        <th>Total:</th>
+                        <td>$265.24</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <!-- /.col -->
+              </div>
+              <!-- /.row -->
+
+              <!-- this row will not appear when printing -->
+              <div class="row no-print">
+                <div class="col-12">
+                  <a href="index.php?action=imprimirFactura" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Print</a>
+                  <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Submit
+                    Payment
+                  </button>
+                  <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-download"></i> Generate PDF
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- /.invoice -->
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->

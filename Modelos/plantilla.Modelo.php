@@ -7,6 +7,7 @@ class Paginas{
         $enlacesModelo== "salir" ||
         $enlacesModelo== "perfiles" ||
         $enlacesModelo== "factura" ||
+        $enlacesModelo== "facturas" ||
         $enlacesModelo== "servicios" ||
         $enlacesModelo== "usuarios" ||
         $enlacesModelo== "clientes" ||
@@ -16,6 +17,7 @@ class Paginas{
         $enlacesModelo== "editarCliente"|| 
         $enlacesModelo== "editarVehiculo"|| 
         $enlacesModelo== "clienteDetalles"|| 
+        $enlacesModelo== "imprimirFactura"||
         $enlacesModelo== "perfilVehiculo"|| 
         $enlacesModelo== "alcoholydrogas"|| 
         $enlacesModelo== "editarServicioAsignado"||

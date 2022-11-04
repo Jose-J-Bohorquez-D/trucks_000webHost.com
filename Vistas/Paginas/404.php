@@ -20,7 +20,7 @@
         <div class="error-content">
           <h3><i class="fas fa-exclamation-triangle text-warning"></i> Oops! pagina no encontrada.</h3>
           <p>
-            Ingresa Al Menu Lateral y Alli Podras Encontrar Las Paginas Disponibles, Tambien Puedes Regresar Haciendo  <a href="inicio">(Click Aqui)</a>.
+            Ingresa Al Menu Lateral y Alli Podras Encontrar Las Paginas Disponibles, Tambien Puedes Regresar Haciendo  <a href="index.php?action=inicio">(Click Aqui)</a>.
           </p>
         </div>
       </div>
