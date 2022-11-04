@@ -1,0 +1,74 @@
+// Cabecera de página
+function Header()
+{
+    #$this->Image('logo.png',10,8,33);// Logo
+    $this->SetFont('Arial','',15);// Arial bold 15
+    $this->Cell(145);// Movernos a la derecha
+    $this->Cell(44,7,'Factura De Venta',1,0,'C');
+	$this->Ln(10);//salto de linea
+	$this->Cell(145);// Movernos a la derecha
+	$this->SetFont('Arial','',10);
+    $this->Cell(45,8,utf8_decode('Factura N°: 1111111111'),0,0,'C');
+    $this->Ln(5);//salto de linea
+    $this->Cell(145);// Movernos a la derecha
+    $this->SetFont('Arial','',10);//se cambia la tipografia a tamaño 10
+    $this->Cell(45,8,utf8_decode('Fecha: 25/07/2022'),0,0,'C');//fecha de la factura
+    
+    $this->Ln(-16);//salto de linea
+    $this->SetFont('Arial','',14);//cambiamos tamaño tipografia a 13
+    $this->Cell(72.5);// Movernos a la derecha
+    $this->Cell(50,7,'TRUCKS S.A.S',0,0,'C');//nombre de la empresa
+    $this->Ln(4);//salto de linea
+    $this->SetFont('Arial','',8);//cambiamos tamaño tipografia a 1
+    $this->Cell(72.5);// Movernos a la derecha
+    $this->Cell(52,6,'NIT: 111111111-1',0,0,'C');//nit
+    $this->Ln(8);//salto de linea
+    $this->SetFont('Arial','',10);//cambiamos tamaño tipografia a 10
+    $this->Cell(72.5);// Movernos a la derecha
+    $this->Cell(50,7,'City: sprimfield',0,0,'C');//estado provincia localidad etc
+    $this->Ln(4);//salto de linea
+    $this->Cell(72.5);// Movernos a la derecha
+    $this->Cell(50,7,'Address: Av 100pre viva 742',0,0,'C');//direccion empresa
+    $this->Ln(4);//salto de linea
+    $this->Cell(72.5);// Movernos a la derecha
+    $this->Cell(50,7,'Fax:+57 6215010',0,0,'C');//fax
+    $this->Ln(-19);//salto de linea
+
+    $this->Cell(50,20,'LOGO',1,10,'C');//nombre de la empresa
+
+
+    
+}
+
+// Pie de página
+function Footer()
+{
+    // Posición: a 1,5 cm del final
+    $this->SetY(-15);
+    // Arial italic 8
+    $this->SetFont('Arial','I',8);
+    // Número de página
+    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+}
+}
+
+
+$pdf = new PDF();
+$pdf->AliasNbPages();
+$pdf->AddPage();
+$pdf->Ln(10);//salto de linea
+$pdf->SetFont('Arial','B',13);
+$pdf->Cell(40,10,'PARA:');
+$pdf->Ln(4);//salto de linea
+$pdf->SetFont('Arial','B',10);
+$pdf->Cell(40,10,'Jose Bohorquez');
+$pdf->Ln(4);//salto de linea
+$pdf->Cell(40,10,'Servitech_BD');
+$pdf->Ln(4);//salto de linea
+$pdf->Cell(40,10,'Cra 65#4-60');
+$pdf->Ln(4);//salto de linea
+$pdf->Cell(40,10,utf8_decode('Bogotá'));
+$pdf->Ln(4);//salto de linea
+$pdf->Cell(40,10,'3178773186');
+
+$pdf->Output();

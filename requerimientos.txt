@@ -1,0 +1,14 @@
+buscar como pre llenar documentos
+
+vista reporte de ventas ?
+consulta por dia, mes y año
+busqueda por rango de tal fecha a tal fecha
+filtrar por dia y por rango 
+
+revisar la subida de los archivos
+
+poner el logo al menu lat
+
+pasarela de pagos con paypal y authorize.net
+
+mails masivos documentarme
