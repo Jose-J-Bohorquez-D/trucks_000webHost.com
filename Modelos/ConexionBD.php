@@ -4,7 +4,7 @@ class ConexionBD{
 
   static public function conectarbd(){
 
-    $link=new PDO("mysql:host=localhost;dbname=id19246047_trucks2023","id19246047_sup_admin_bd","30uSYi22ovh{1Q7R");
+    $link=new PDO("mysql:host=localhost;dbname=trucks2023","root","");
 
     #var_dump($link); #testeo conexion
 

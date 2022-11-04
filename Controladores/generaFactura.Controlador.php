@@ -1,5 +1,5 @@
 <?php 
-
+/*
 require_once("FPDF/fpdf.php");
 
 class GeneradorDeFacturasControlador extends FPDF{
@@ -20,4 +20,4 @@ class GeneradorDeFacturasControlador extends FPDF{
 
 }
 
- ?>
+ */?>

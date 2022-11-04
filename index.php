@@ -1,6 +1,6 @@
 <?php ob_start();
 
-require_once("FPDF/fpdf.php");
+#require_once("FPDF/fpdf.php");
 require_once("Modelos/cn.php");
 
 require_once("Controladores/plantilla.Controlador.php");
