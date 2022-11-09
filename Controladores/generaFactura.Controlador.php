@@ -1,23 +1,23 @@
 <?php 
-/*
-require_once("FPDF/fpdf.php");
 
-class GeneradorDeFacturasControlador extends FPDF{
+class GeneradorDeFacturasControlador{
 
-	public function ctlrRecibe_Servicio_A_facturar(){
+	public function mostrar_datos_en_la_factura_ctlr(){
 		if (isset($_GET["idFactura"])) {
-			$id_asignacion_servicio=$_GET["idFactura"];
-			$respuesta=GeneradorFacturasModelo::mdlRecibe_Servicio_A_facturar("servicios_asignados_vehiculos");
-			var_dump($respuesta);
-
-			
-
-
-
+			$idAsigServ=$_GET["idFactura"];
+			$respuesta=GeneradorDeFacturasModelo::mostrar_datos_en_la_factura_mdl($idAsigServ);
+			#var_dump($respuesta);
+			$fecha=date('d-m-Y');
+			$fechaComoEntero = strtotime($fecha);
+			$anio = date("Y", $fechaComoEntero);
+			$mes = date("m", $fechaComoEntero);
+			$dia = date("d", $fechaComoEntero);
+			$mesPlazo=$mes+1;
+			require_once("Vistas/Paginas/mostrarFactura.php");
 
 		}
 	}
 
 }
 
- */?>
+?>
